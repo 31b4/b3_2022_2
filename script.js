@@ -55,6 +55,6 @@ function PontSzamitas(hossz,i,j,td){
     td.innerHTML = pont;
     td.value = pont;
     if(pont%2==0){
-        td.style.backgroundcolor="light-blue";
+        td.style.backgroundcolor="yellow"
     }
 }
