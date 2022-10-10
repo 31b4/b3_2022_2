@@ -15,6 +15,7 @@ $(document).ready(function() {
                 td.style.border="2px solid";
                 td.id=i+';'+j;
                 PontSzamitas(hossz,i,j,td)
+                console.log(td.backgroundcolor)
                 tr.appendChild(td);
             }
             table.appendChild(tr);
@@ -54,7 +55,6 @@ function PontSzamitas(hossz,i,j,td){
     }
     td.innerHTML = pont;
     td.value = pont;
-    console.log(pont%2)
     if(pont%2==0){
         td.style.backgroundcolor="yellow"
         $(td).css("backgroundcolor","yellow")
