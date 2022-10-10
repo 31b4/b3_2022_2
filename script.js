@@ -55,6 +55,7 @@ function PontSzamitas(hossz,i,j,td){
     td.innerHTML = pont;
     td.value = pont;
     if(pont%2==0){
+        alert("fasz")
         td.style.backgroundcolor="yellow"
         $(td).css("backgroundcolor","yellow")
     }
