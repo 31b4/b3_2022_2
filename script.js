@@ -15,7 +15,7 @@ $(document).ready(function() {
                 td.style.border="2px solid";
                 td.id=i+';'+j;
                 PontSzamitas(hossz,i,j,td)
-                console.log(td.backgroundcolor)
+                console.log(td.style.backgroundcolor)
                 tr.appendChild(td);
             }
             table.appendChild(tr);
