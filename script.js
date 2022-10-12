@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $("#jatek").click(function(){
+        jelenlegi_jatekos = true
         $("#keret").html("");
         var table =document.createElement("table");
         document.getElementById("keret").appendChild(table)
