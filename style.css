@@ -1,3 +1,6 @@
+body{
+    background-color: rgb(52, 100, 59) !important;
+}
 /*-------------------------header-------------------------*/
 div#container div a{
     
@@ -47,6 +50,14 @@ div#container div h1 span{
     width:170px;
 }
 /*---------------------------------------------*/
-body{
-    background-color: blue;
+
+#keret, #cim{
+    text-align: center;
+    width: 100%;
+
+
+}
+#keret table{
+    margin: auto;
+    margin-top: 10px;
 }
