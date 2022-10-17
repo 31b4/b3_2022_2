@@ -51,13 +51,23 @@ div#container div h1 span{
 }
 /*---------------------------------------------*/
 
-#keret, #cim{
+#keret, #cim, #timer{
     text-align: center;
     width: 100%;
-
-
 }
 #keret table{
     margin: auto;
     margin-top: 10px;
 }
+#timer {
+    margin: auto;
+    color: white;
+    font-size: 25px;
+    font-weight: bolder;
+    background-color: black;
+    border-radius: 15px;
+    max-width: 100px;
+    margin-top: 10px;
+}
+
+
