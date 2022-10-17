@@ -7,7 +7,6 @@ $(document).ready(function() {
         var table =document.createElement("table");
         document.getElementById("keret").appendChild(table)
         if (hossz%2==1) {
-            alert("Csak páros oldalú lehet")
             return
         }
         table.id="table";
@@ -85,8 +84,10 @@ function KezdoKororngok(){
     
 }
 var jelenlegi_jatekos = true;//true=p1; false = p2
+var valid_lepes = false;
 function Lepes(i,j) {
-    if(ValidLepes(i,j)){
+    if(ValidLepes(i,j) && valid_lepes){
+        valid_lepes=false
         if (jelenlegi_jatekos) {
             document.getElementById(i+";"+j).style.backgroundColor="black"
             jelenlegi_jatekos=!jelenlegi_jatekos
@@ -97,7 +98,7 @@ function Lepes(i,j) {
         }
     }
     else{
-        alert("nem lephetsz ide");
+       // alert("nem lephetsz ide");
     }
 }
 function ValidLepes(i,j) {
@@ -136,6 +137,9 @@ function Iranyok(x,y,i,j) {
                 && (document.getElementById(Number(i+(x*szorzo))+";"+Number(j+(y*szorzo))).style.backgroundColor ==ellenfel_color 
                 || document.getElementById(Number(i+(x*szorzo))+";"+Number(j+(y*szorzo))).style.backgroundColor ==sajat_color)){
             if(document.getElementById(Number(i+(x*szorzo))+";"+Number(j+(y*szorzo))).style.backgroundColor ==sajat_color){
+                if(lepesek.length!=0){
+                    valid_lepes=true
+                }
                 for (let i = 0; i < lepesek.length; i++) {
                     document.getElementById(lepesek[i]).style.backgroundColor=sajat_color;
                 }
