@@ -1,34 +1,28 @@
-
 var hossz=parseInt($("#hossz").val());
-var img_fekete = new Image()
-img_fekete.src="img/black.png"
-img_fekete.style.width="100%"
-var img_feher = new Image()
-img_feher.src="img/white.png"
-img_feher.style.width="100%"
+
 $(document).ready(function() {
     $("#jatek").click(function(){
         //mindent a default ertekbe helyezese
         jelenlegi_jatekos = true;//true=p1; false = p2
         valid_lepes = false;
         tud_lepni = false;
-        perc = 00;
-        masodperc = 00;
-        htmlmasodperc.innerHTML="00"
-        htmlperc.innerHTML=0
+        perc = 0;
+        masodperc = 0;
+        htmlmasodperc.innerHTML="00";
+        htmlperc.innerHTML=0;
         clearInterval(Interval);
         Interval = setInterval(Timer, 1000);
         document.getElementById("jatek").disabled = true;
         document.getElementById("hossz").disabled = true;
-        document.getElementById("jelenlegi_jatekos").innerHTML="Jelenlegi játékos: fekete"
+        document.getElementById("jelenlegi_jatekos").innerHTML="Jelenlegi játékos: fekete";
         hossz=parseInt($("#hossz").val());
-        jelenlegi_jatekos = true
+        jelenlegi_jatekos = true;
         $("#keret").html("");
         //--------------------------------------------
         var table =document.createElement("table");
-        document.getElementById("keret").appendChild(table)
+        document.getElementById("keret").appendChild(table);
         if (hossz%2==1) {
-            return
+            return;
         }
         table.id="table";
         table.style.border="2px solid";
@@ -40,18 +34,17 @@ $(document).ready(function() {
                 td.style.width="50px";
                 td.style.border="2px solid";
                 td.id=i+';'+j;
-                td.style.backgroundColor="darkgreen"
-                td.classList="ures"
-                td.addEventListener("click",()=>{Lepes(i,j)});
-                PontSzamitas(i,j,td)
+                td.style.backgroundColor="darkgreen";
+                td.classList="ures";
+                td.addEventListener("click",()=>{Lepes(i,j);});
+                PontSzamitas(i,j,td);
                 tr.appendChild(td);
             }
             table.appendChild(tr);
         }
-        KezdoKororngok()
-        
-    })
-})
+        KezdoKororngok();
+    });
+});
 function PontSzamitas(i,j,td){
     var pont;
     if (i<(hossz/2)) {
@@ -96,52 +89,78 @@ function PontSzamitas(i,j,td){
 
 
 function KezdoKororngok(){
-    var kord = Number(hossz/2-1)
+    var kord = Number(hossz/2-1);
+    var img_feher = new Image();
+    img_feher.src="img/white.png";
+    img_feher.style.width="100%";
+    img_feher.id=kord+";"+kord+"_img";
+    document.getElementById(kord+";"+kord).append(img_feher);
 
-
-    document.getElementById(kord+";"+kord).append(img_feher.cloneNode())
-    document.getElementById(kord+";"+Number(kord+1)).append(img_fekete.cloneNode())
-    document.getElementById(Number(kord+1)+";"+kord).append(img_fekete.cloneNode())
-    document.getElementById(Number(kord+1)+";"+Number(kord+1)).append(img_feher.cloneNode())
+    var img_fekete = new Image();
+    img_fekete.src="img/black.png";
+    img_fekete.style.width="100%";
+    img_fekete.id=kord+";"+Number(kord+1)+"_img";
+    document.getElementById(kord+";"+Number(kord+1)).append(img_fekete);
     
-    document.getElementById(kord+";"+kord).classList="white"
-    document.getElementById(kord+";"+Number(kord+1)).classList="black"
-    document.getElementById(Number(kord+1)+";"+kord).classList="black"
-    document.getElementById(Number(kord+1)+";"+Number(kord+1)).classList="white"
+    var img_fekete_2 = new Image();
+    img_fekete_2.src="img/black.png";
+    img_fekete_2.style.width="100%";
+    img_fekete_2.id=Number(kord+1)+";"+kord+"_img";
+    document.getElementById(Number(kord+1)+";"+kord).append(img_fekete_2);
+
+    var img_feher_2 = new Image();
+    img_feher_2.src="img/white.png";
+    img_feher_2.style.width="100%";
+    img_feher_2.id=Number(kord+1)+";"+Number(kord+1)+"_img";
+    document.getElementById(Number(kord+1)+";"+Number(kord+1)).append(img_feher_2);
+    
+    document.getElementById(kord+";"+kord).classList="white";
+    document.getElementById(kord+";"+Number(kord+1)).classList="black";
+    document.getElementById(Number(kord+1)+";"+kord).classList="black";
+    document.getElementById(Number(kord+1)+";"+Number(kord+1)).classList="white";
     
     
 }
 var jelenlegi_jatekos = true;//true=p1; false = p2
 var valid_lepes = false;
 var tud_lepni = false;
+var animacio_vege = true;
 function Lepes(i,j) {
-    if(ValidLepes(i,j,false) && valid_lepes){// && valid_lepes
-        valid_lepes=false
+    if( animacio_vege && ValidLepes(i,j,false) && valid_lepes){// && valid_lepes
+        valid_lepes=false;
+        animacio_vege = false;
         if (jelenlegi_jatekos) {
-            document.getElementById(i+";"+j).classList="black"
-            document.getElementById(i+";"+j).append(img_fekete.cloneNode())
+            document.getElementById(i+";"+j).classList="black";
+            var img_fekete = new Image();
+            img_fekete.src="img/black.png";
+            img_fekete.style.width="100%";
+            img_fekete.id=i+";"+j+"_img";
+            document.getElementById(i+";"+j).append(img_fekete);
         }
         else{
-            document.getElementById(i+";"+j).classList="white"
-            document.getElementById(i+";"+j).append(img_feher.cloneNode())
+            document.getElementById(i+";"+j).classList="white";
+            var img_feher = new Image();
+            img_feher.src="img/white.png";
+            img_feher.style.width="100%";
+            img_feher.id=i+";"+j+"_img";
+            document.getElementById(i+";"+j).append(img_feher);
 
         }
         if(!NextPlayerCantMove(!jelenlegi_jatekos)){
-            jelenlegi_jatekos = !jelenlegi_jatekos
+            jelenlegi_jatekos = !jelenlegi_jatekos;
             if (jelenlegi_jatekos) {
-                document.getElementById("jelenlegi_jatekos").innerHTML="Jelenlegi játékos: feher"
-                document.getElementById("jelenlegi_jatekos").style.color="white"
+                document.getElementById("jelenlegi_jatekos").innerHTML="Jelenlegi játékos: feher";
+                document.getElementById("jelenlegi_jatekos").style.color="white";
             }
             else{
-                document.getElementById("jelenlegi_jatekos").innerHTML="Jelenlegi játékos: fekete"
-                document.getElementById("jelenlegi_jatekos").style.color="black"
+                document.getElementById("jelenlegi_jatekos").innerHTML="Jelenlegi játékos: fekete";
+                document.getElementById("jelenlegi_jatekos").style.color="black";
             }
-            jelenlegi_jatekos = !jelenlegi_jatekos
+            jelenlegi_jatekos = !jelenlegi_jatekos;
         }else{
             if(NextPlayerCantMove(jelenlegi_jatekos)){
-                JatekVege()
+                JatekVege();
             }
-
         }
     }
     else{
@@ -149,136 +168,187 @@ function Lepes(i,j) {
     }
 }
 function NextPlayerCantMove(ki){
-    jelenlegi_jatekos = ki
-    tud_lepni = false
+    jelenlegi_jatekos = ki;
+    tud_lepni = false;
     for (let i = 0; i < hossz; i++) {
         for (let j = 0; j < hossz; j++) {
-           ValidLepes(i,j,true)
+            //csak ha nincs ott semmi
+            ValidLepes(i,j,true);
             if (tud_lepni) {
-                return false
+                return false;
             }
         }
         
     }
-    return true
+    return true;
 }
 function ValidLepes(i,j,teszt) { // ha teszt igaz akkor nem valodi lepes csak nézi hogy tudna e lepni
     if(document.getElementById(i+";"+j).classList=="ures"){
-        Iranyok(-1,0,i,j,teszt)
-        Iranyok(-1,+1,i,j,teszt)
-        Iranyok(0,+1,i,j,teszt)
-        Iranyok(+1,+1,i,j,teszt)
-        Iranyok(+1,0,i,j,teszt)
-        Iranyok(+1,-1,i,j,teszt)
-        Iranyok(0,-1,i,j,teszt)
-        Iranyok(-1,-1,i,j,teszt)
+        Iranyok(-1,0,i,j,teszt);
+        Iranyok(-1,+1,i,j,teszt);
+        Iranyok(0,+1,i,j,teszt);
+        Iranyok(+1,+1,i,j,teszt);
+        Iranyok(+1,0,i,j,teszt);
+        Iranyok(+1,-1,i,j,teszt);
+        Iranyok(0,-1,i,j,teszt);
+        Iranyok(-1,-1,i,j,teszt);
     }
     else{
         return false;
     }
     return true;
 }
+
+//publikus
+
+
+
+//var a = setInterval;
+//------
 function Iranyok(x,y,i,j,teszt) { // ha teszt igaz akkor nem valodi lepes csak nézi hogy tudna e lepni
-    var ellenfel_color=""
-    var sajat_color=""
+    var ellenfel_color="";
+    var sajat_color="";
     if (jelenlegi_jatekos){
-        ellenfel_color="white"
-        sajat_color="black"
+        ellenfel_color="white";
+        sajat_color="black";
     }
     else{
-        ellenfel_color = "black"
-        sajat_color="white"
+        ellenfel_color = "black";
+        sajat_color="white";
     }
 
     if (i+x>=0 && i+x<hossz && j+y>=0 && j+y<hossz) {
         var szorzo = 1;
-        var lepesek =[]
+        var lepesek =[];
         while(i+(x*szorzo)>=0 && i+(x*szorzo)<hossz && j+(y*szorzo)>=0 && j+(y*szorzo)<hossz 
                 && (document.getElementById(Number(i+(x*szorzo))+";"+Number(j+(y*szorzo))).classList ==ellenfel_color 
                 || document.getElementById(Number(i+(x*szorzo))+";"+Number(j+(y*szorzo))).classList ==sajat_color)){
             if(document.getElementById(Number(i+(x*szorzo))+";"+Number(j+(y*szorzo))).classList ==sajat_color){
                 if(lepesek.length!=0){
-                    tud_lepni = true
+                    tud_lepni = true;
                     if (!teszt) {
-                        valid_lepes=true
-                        for (let i = 0; i < lepesek.length; i++) {
-                            document.getElementById(lepesek[i]).classList=sajat_color;
-                            document.getElementById(lepesek[i]).innerHTML=""
+                        valid_lepes=true;
+                        for (let k = 0; k < lepesek.length; k++) {
+                            document.getElementById(lepesek[k]).classList=sajat_color;
+
                             if (sajat_color=="black") {
-                                //let imageSelected = document.getElementById(lepesek[i]).getElementsByTagName('img').item(0).getAttribute('src');
-                                document.getElementById(lepesek[i]).append(img_fekete.cloneNode())
-                            }
-                            else{
-                                document.getElementById(lepesek[i]).append(img_feher.cloneNode())
+                                let kep= document.getElementById(lepesek[k]+"_img");
+                                //let a = setInterval(()=>{forgas("black",kep, a);}, 1);
+                                //sleep(300)
+                                setTimeout(Forgasd, 1, "black", kep);
+                            } else{
+                                let kep= document.getElementById(lepesek[k]+"_img");                                                                                            
+                                //let a = setInterval(()=>{forgas("white",kep, a);}, 1);
+                                //sleep(300)
+                                setTimeout(Forgasd,1, "white", kep);
                             }
                         }
                     }
                 }
                 break;
             }
-            lepesek.push(Number(i+(x*szorzo))+";"+Number(j+(y*szorzo)))
+            lepesek.push(Number(i+(x*szorzo))+";"+Number(j+(y*szorzo)));
             szorzo+=1;
         }
     }   
 }
+function sleep(delay) {
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
+}
+function Forgasd(szin,kep){
+    var fok=0;
+    let a = setInterval(()=>{fok = forgas(szin,kep, a,fok);}, 1);
+    
+    //setTimeout(forgas(szin,kep),1000)
+}
 
+function forgas(szin,kep,a,fok) {
+    $(kep).css(
+        '-webkit-transform', 'rotateY('+fok +'deg'+')',
+        '-moz-transform', 'rotateY('+fok +'deg'+')',
+        '-ms-transform', 'rotateY('+fok +'deg'+')',
+        '-o-transform', 'rotateY('+fok +'deg'+')',
+        'transform', 'rotateY('+fok +'deg'+')'
+    );        
+    fok += 1;
+    if (fok == 90) {    
+        $(kep).attr("src", "img/"+szin+".png");
+    }else if(fok == 180){
+        fok = 0;
+        clearInterval(a);
+        animacio_vege = true;
+    }
+    return fok;
+}
 
 function JatekVege(){
     clearInterval(Interval);
     document.getElementById("jatek").disabled = false;
     document.getElementById("hossz").disabled = false;
-    var fekete_pont = 0
-    var feher_pont = 0
+    var fekete_pont = 0;
+    var feher_pont = 0;
     for (let i = 0; i < hossz; i++) {
         for (let j = 0; j < hossz; j++) {
             //document.getElementById(i+";"+j).innerHTML=document.getElementById(i+";"+j).value
             if (document.getElementById(i+";"+j).classList=="black") {
-                fekete_pont+= document.getElementById(i+";"+j).value
-                document.getElementById(i+";"+j).style.color="white"
+                fekete_pont+= document.getElementById(i+";"+j).value;
             }
             else if(document.getElementById(i+";"+j).classList=="white"){
-                feher_pont+= document.getElementById(i+";"+j).value
+                feher_pont+= document.getElementById(i+";"+j).value;
             }
         }
     }
     if (fekete_pont> feher_pont) {
-        console.log("Fekete jatekos nyert "+fekete_pont+"pontal, Fehér vesztett "+ feher_pont+" pontal")
+        ModalMake("Fekete játékos nyert "+fekete_pont+" ponttal, Fehér vesztett "+ feher_pont+" ponttal");
+        console.log("Fekete játékos nyert "+fekete_pont+" ponttal, Fehér vesztett "+ feher_pont+" ponttal");
     }
     else if(fekete_pont< feher_pont){
-        console.log("Feher jatekos nyert "+feher_pont+"pontal, Fekete vesztett "+ fekete_pont+" pontal")
+        ModalMake("Fehér játékos nyert "+feher_pont+" ponttal, Fekete vesztett "+ fekete_pont+" ponttal");
+        console.log("Fehér játékos nyert "+feher_pont+" ponttal, Fekete vesztett "+ fekete_pont+" ponttal");
     }
     else{
-        console.log("Döntetlen lett "+feher_pont+" - "+fekete_pont+" pontal")
+        ModalMake("Döntetlen lett "+feher_pont+" - "+fekete_pont+" ponttal");
+        console.log("Döntetlen lett "+feher_pont+" - "+fekete_pont+" ponttal");
     }
 }
     
 
-var perc = 00; 
-var masodperc = 00; 
-var htmlmasodperc = document.getElementById("masodperc")
-var htmlperc = document.getElementById("perc")
+var perc = 0; 
+var masodperc = 0; 
+var htmlmasodperc = document.getElementById("masodperc");
+var htmlperc = document.getElementById("perc");
 var Interval;
 
 
 function Timer () {
-    masodperc++; 
-    
+    masodperc++;
     if(masodperc <= 9){
         htmlmasodperc.innerHTML = "0" + masodperc;
     }
-    
     if (masodperc > 9){
         htmlmasodperc.innerHTML = masodperc;
-    } 
-    
-    if (masodperc > 99) {
+    }
+    if (masodperc > 59) {
         perc++;
         htmlperc.innerHTML = "0" + perc;
         masodperc = 0;
         htmlmasodperc.innerHTML = "0" + 0; 
     }
-    
     if (perc > 9){
         htmlperc.innerHTML = masodperc;
     }
+}
+
+
+
+//MODAL_______________________
+
+
+function ModalMake(ezt){
+    
+    var myModal = new bootstrap.Modal(document.getElementById("winner_modal"));
+    myModal.show();
+    $("#modal_cim").text(ezt);
+    
 }
