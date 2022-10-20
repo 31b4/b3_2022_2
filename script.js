@@ -1,4 +1,4 @@
-var hossz=parseInt($("#hossz").val());
+var hossz = parseInt($("#hossz").val());
 
 $(document).ready(function() {
     $("#jatek").click(function(){
@@ -16,7 +16,6 @@ $(document).ready(function() {
         document.getElementById("hossz").disabled = true;
         document.getElementById("jelenlegi_jatekos").innerHTML="Jelenlegi játékos: fekete";
         hossz=parseInt($("#hossz").val());
-        jelenlegi_jatekos = true;
         $("#keret").html("");
         //--------------------------------------------
         var table =document.createElement("table");
@@ -178,7 +177,6 @@ function NextPlayerCantMove(ki){
                 return false;
             }
         }
-        
     }
     return true;
 }
@@ -230,17 +228,16 @@ function Iranyok(x,y,i,j,teszt) { // ha teszt igaz akkor nem valodi lepes csak n
                         valid_lepes=true;
                         for (let k = 0; k < lepesek.length; k++) {
                             document.getElementById(lepesek[k]).classList=sajat_color;
-
                             if (sajat_color=="black") {
                                 let kep= document.getElementById(lepesek[k]+"_img");
                                 //let a = setInterval(()=>{forgas("black",kep, a);}, 1);
                                 //sleep(300)
-                                setTimeout(Forgasd, 1, "black", kep);
+                                setTimeout(Forgasd, 1000*k, "black", kep,k,lepesek.length);
                             } else{
                                 let kep= document.getElementById(lepesek[k]+"_img");                                                                                            
                                 //let a = setInterval(()=>{forgas("white",kep, a);}, 1);
                                 //sleep(300)
-                                setTimeout(Forgasd,1, "white", kep);
+                                setTimeout(Forgasd, 1000*k, "white", kep,k,lepesek.length);
                             }
                         }
                     }
@@ -256,14 +253,14 @@ function sleep(delay) {
     var start = new Date().getTime();
     while (new Date().getTime() < start + delay);
 }
-function Forgasd(szin,kep){
+function Forgasd(szin,kep,i,len){
     var fok=0;
-    let a = setInterval(()=>{fok = forgas(szin,kep, a,fok);}, 1);
+    let a = setInterval(()=>{fok = forgas(szin,kep, a,fok,i,len);}, 1);
     
     //setTimeout(forgas(szin,kep),1000)
 }
 
-function forgas(szin,kep,a,fok) {
+function forgas(szin,kep,a,fok,i,len) {
     $(kep).css(
         '-webkit-transform', 'rotateY('+fok +'deg'+')',
         '-moz-transform', 'rotateY('+fok +'deg'+')',
@@ -277,8 +274,11 @@ function forgas(szin,kep,a,fok) {
     }else if(fok == 180){
         fok = 0;
         clearInterval(a);
-        animacio_vege = true;
+        if(i+1 == len){
+            animacio_vege = true;
+        }
     }
+
     return fok;
 }
 
